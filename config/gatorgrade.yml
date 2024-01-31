@@ -1,0 +1,27 @@
+# --> check the technical writing for various characteristics
+- README.md:
+  - description: Ensure that the README.md file exists in the root/ directory
+    check: ConfirmFileExists
+  - description: Complete all TODOs, remove the TODO markers, and rewrite comments for the reflection
+    check: MatchFileFragment
+    options:
+      fragment: TODO
+      count: 0
+      exact: true
+  - description: Delete the 'Add Your Name Here' prompt in the reflection file
+    check: MatchFileFragment
+    options:
+      fragment: "Add Your Name Here"
+      count: 0
+      exact: true
+  - description: Delete the 'Enter The Name Of Your Project' prompt in the reflection file
+    check: MatchFileFragment
+    options:
+      fragment: "Add Your Name Here"
+      count: 0
+      exact: true
+  # count number of commits in the GitHub repository
+- description: Have at least at least 10 commits in repository
+  check: CountCommits
+  options:
+    count: 10
