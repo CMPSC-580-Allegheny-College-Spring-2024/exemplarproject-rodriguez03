@@ -5,11 +5,11 @@
 
 This repository contains student project materials, including project report, data, code, and references to literature for this departmentally-sponsored project. __As you complete each of the below sections in this document, please be sure to remove the preamble text so that it does not appear in your work.__ Please work with your first reader to answer any questions or concerns that you may have.
 
-## GitHub Handle: Add Your Name Here
+## GitHub Handle: rodriguez03
 
-## Name: Add Your Name Here
+## Name: Sabrina Rodriguez
 
-## Major: TODO (choose: CS, DS, INFM, SE)
+## Major: Computer Science (DS)
 
 ## Project Name: Enter The Name Of Your Project
 
@@ -24,6 +24,7 @@ TODO (250 words minimum): Discuss the overview of the project using and building
 ## Literature Review
 
 TODO: Conduct literature review by describing relevant work related to the project and hence providing an overview of the state of the art in the area of the project. This section serves to contextualize the study within the existing body of literature, presenting a thorough review of relevant prior research and scholarly contributions. In clear and meaningful language, this section aims to demonstrate the problems, gaps, controversies, or unanswered questions that are associated with the current understanding of the topic. In addition, this section serves to highlight the current study's unique contribution to the field. By summarizing and critiquing existing works, this section provides a foundation for readers to appreciate the novelty and significance of the study in relation to the broader academic discourse. The "Literature Review" section further contributes to the `why is the project important?` question. The number of scholarly work included in the literature review may vary depending on the project.
+
 
 ## Methods
 
