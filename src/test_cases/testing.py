@@ -80,18 +80,20 @@ def fact_check(query, db_path, similarity_threshold=0.2, show_contents=False):
     article_data = [(row[0], row[1], row[2]) for row in rows]
 
     # Query Sanitization
-    # Consider adding more sophisticated text preprocessing based on your requirements
     query = query.lower()
 
     vectorizer = TfidfVectorizer(stop_words='english')
     vectors = vectorizer.fit_transform([query] + [text for _, _, text in article_data])
 
-    similarities = cosine_similarity(vectors[:-1], vectors[-1])
+    query_vector = vectors[0]
+    article_vectors = vectors[1:]
+
+    similarities = cosine_similarity(query_vector, article_vectors)
 
     matching_articles = [
-        (article_data[i][0], article_data[i][1], similarities[i])
+        (article_data[i][0], article_data[i][1], similarities[0][i])
         for i in range(len(similarities))
-        if similarities[i] > similarity_threshold
+        if similarities[0][i] >= similarity_threshold
     ]
 
     if not matching_articles:
@@ -100,12 +102,13 @@ def fact_check(query, db_path, similarity_threshold=0.2, show_contents=False):
         result = "The fact is supported by the following articles:\n\n"
         for article in matching_articles:
             article_id, title, similarity_score = article
-            result += f"Article ID: {article_id}\nTitle: {title}\nSimilarity Score: {float(similarity_score[0]):.4f}\n\n"
+            result += f"Article ID: {article_id}\nTitle: {title}\nSimilarity Score: {float(similarity_score):.4f}\n\n"
             if show_contents:
                 result += "Full Text:\n" + article_data[article_id - 1][2] + "\n\n"
 
     conn.close()
     return result
+
 
 
 def main():
