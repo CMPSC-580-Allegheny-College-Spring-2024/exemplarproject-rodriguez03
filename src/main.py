@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-CHUNK_SIZE = 500  # Process 500 XML files at a time
+CHUNK_SIZE = 500 
+
 
 def extract_data_from_xml(xml_path):
     """Extract and process data from XML Files."""
@@ -21,10 +22,12 @@ def extract_data_from_xml(xml_path):
         text = title + " " + abstract
         return text
 
-def process_chunk(cursor, chunk):
-    for xml_path in chunk:
-        text = extract_data_from_xml(xml_path)
-        cursor.execute('INSERT INTO articles (title, text) VALUES (?, ?)', (os.path.basename(xml_path), text))
+def process_chunk(conn, cursor, chunk):
+    with conn:
+        for xml_path in chunk:
+            text = extract_data_from_xml(xml_path)
+            cursor.execute('INSERT INTO articles (title, text) VALUES (?, ?)', (os.path.basename(xml_path), text))
+    conn.commit()
 
 def process_corpus(corpus_path, db_path):
     """Process XML files and store data in the database."""
@@ -49,26 +52,22 @@ def process_corpus(corpus_path, db_path):
                 chunk.append(xml_path)
 
                 if len(chunk) >= CHUNK_SIZE:
-                    process_chunk(cursor, chunk)
-                    conn.commit()
+                    process_chunk(conn, cursor, chunk)
                     chunk = []
                     files_processed += CHUNK_SIZE
 
-    # Process the remaining files
     if chunk:
-        process_chunk(cursor, chunk)
-        conn.commit()
+        process_chunk(conn, cursor, chunk)
         files_processed += len(chunk)
 
     conn.close()
     return files_processed
 
-def fact_check(query, db_path):
+
+def fact_check(query, db_path, similarity_threshold=0.2, show_contents=False):
     """Perform fact-checking on all articles."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-
-    # Retrieving data from all articles
     cursor.execute('SELECT id, title, text FROM articles')
     rows = cursor.fetchall()
 
@@ -76,29 +75,33 @@ def fact_check(query, db_path):
         conn.close()
         return "No articles found. Please process the corpus before fact-checking."
 
-    # Extract article titles and texts for comparison
-    article_data = [(row[1], row[2]) for row in rows]
+    article_data = [(row[0], row[1], row[2]) for row in rows]
 
-    # Use TF-IDF vectorizer for similarity comparison
+    # Credit: ChatGPT Lines 76-93
     vectorizer = TfidfVectorizer(stop_words='english')
-    vectors = vectorizer.fit_transform([query] + [text for _, text in article_data])
+    vectors = vectorizer.fit_transform([query] + [text for _, _, text in article_data])
 
-    # Calculate cosine similarity between query and article texts
     similarities = cosine_similarity(vectors[:-1], vectors[-1])
 
-    # Find the most similar article
-    most_similar_index = similarities.argmax()
+    matching_articles = [
+        (article_data[i][0], article_data[i][1], similarities[i])
+        for i in range(len(similarities))
+        if similarities[i] > similarity_threshold
+    ]
 
-    if similarities[most_similar_index] > 0.2:  # Adjust the similarity threshold as needed
-        article_title = article_data[most_similar_index][0]
-        article_text = article_data[most_similar_index][1]
-
-        result = f"The fact is supported by article: {article_title}\n\n{article_text}"
-    else:
+    if not matching_articles:
         result = "No matching article found to support the fact."
+    else:
+        result = "The fact is supported by the following articles:\n\n"
+        for article in matching_articles:
+            article_id, title, similarity_score = article
+            result += f"Article ID: {article_id}\nTitle: {title}\nSimilarity Score: {float(similarity_score[0]):.4f}\n\n"
+            if show_contents:
+                result += "Full Text:\n" + article_data[article_id - 1][2] + "\n\n"
 
     conn.close()
     return result
+
 
 def main():
     "Main Streamlit Application."
@@ -119,8 +122,10 @@ def main():
 
     user_query = st.text_area("Enter the fact you want to check:")
 
+    show_contents = st.checkbox("Show contents of articles")
+    
     if st.button("Fact Check"):
-        result = fact_check(user_query, "corroboration_db.sqlite")
+        result = fact_check(user_query, "corroboration_db.sqlite", show_contents=show_contents)
         st.info(result)
 
 if __name__ == "__main__":
