@@ -11,7 +11,7 @@ This repository contains student project materials, including project report, da
 
 ## Major: Computer Science (DS)
 
- 🧢 🆃🅷🅰🆃🆂 🅰 🅵🅰🅲🆃 🅽🅾 🅲🅰🅿 🧢
+## 🧢 🆃🅷🅰🆃🆂 🅰 🅵🅰🅲🆃 🅽🅾 🅲🅰🅿 🧢
 
 ---
 

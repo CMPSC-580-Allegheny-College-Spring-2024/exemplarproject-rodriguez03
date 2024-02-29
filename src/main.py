@@ -45,6 +45,8 @@ def process_corpus(corpus_path, db_path):
     files_processed = 0
     chunk = []
 
+    st.info("Processing, please wait...")
+
     for root, dirs, files in os.walk(corpus_path):
         for file in files:
             if file.endswith(".xml"):
@@ -61,7 +63,7 @@ def process_corpus(corpus_path, db_path):
         files_processed += len(chunk)
 
     conn.close()
-    return files_processed
+    st.success(f"Processed {files_processed} XML files successfully!")
 
 
 def fact_check(query, db_path, similarity_threshold=0.2, show_contents=False):
@@ -77,16 +79,21 @@ def fact_check(query, db_path, similarity_threshold=0.2, show_contents=False):
 
     article_data = [(row[0], row[1], row[2]) for row in rows]
 
-    # Credit: ChatGPT Lines 76-93
+    # Query Sanitization
+    query = query.lower()
+
     vectorizer = TfidfVectorizer(stop_words='english')
     vectors = vectorizer.fit_transform([query] + [text for _, _, text in article_data])
 
-    similarities = cosine_similarity(vectors[:-1], vectors[-1])
+    query_vector = vectors[0]
+    article_vectors = vectors[1:]
+
+    similarities = cosine_similarity(query_vector, article_vectors)
 
     matching_articles = [
-        (article_data[i][0], article_data[i][1], similarities[i])
+        (article_data[i][0], article_data[i][1], similarities[0][i])
         for i in range(len(similarities))
-        if similarities[i] > similarity_threshold
+        if similarities[0][i] >= similarity_threshold
     ]
 
     if not matching_articles:
@@ -95,12 +102,13 @@ def fact_check(query, db_path, similarity_threshold=0.2, show_contents=False):
         result = "The fact is supported by the following articles:\n\n"
         for article in matching_articles:
             article_id, title, similarity_score = article
-            result += f"Article ID: {article_id}\nTitle: {title}\nSimilarity Score: {float(similarity_score[0]):.4f}\n\n"
+            result += f"Article ID: {article_id}\nTitle: {title}\nSimilarity Score: {float(similarity_score):.4f}\n\n"
             if show_contents:
                 result += "Full Text:\n" + article_data[article_id - 1][2] + "\n\n"
 
     conn.close()
     return result
+
 
 
 def main():
@@ -117,16 +125,16 @@ def main():
             return
 
     if st.button("Process Corpus"):
-        files_processed = process_corpus("./corpus_data", "corroboration_db.sqlite")
-        st.success(f"Processed {files_processed} XML files successfully!")
+        process_corpus("./corpus_data", "corroboration_db.sqlite")
 
     user_query = st.text_area("Enter the fact you want to check:")
 
     show_contents = st.checkbox("Show contents of articles")
     
     if st.button("Fact Check"):
+        st.info("Fact-checking, please wait...")
         result = fact_check(user_query, "corroboration_db.sqlite", show_contents=show_contents)
-        st.info(result)
+        st.success(result)
 
 if __name__ == "__main__":
     main()
