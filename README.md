@@ -15,19 +15,21 @@ This repository contains student project materials, including project report, da
 
 ---
 
-## Overview
+## 😎 Overview 😎
 
 The purpose of this project aims to elevate the effectiveness of using machine learning for text analysis, specifically in the development of a fact-checking system. Its primary objective is to optimize the utilization of text analysis tools, catering to users such as students, researchers, or anyone interested on validating the accuracy of factual information. The project focuses on streamlining the processing of a corpus containing PubMed articles, extracting crucial textual content, and facilitating users in conducting fact-checks through an interface. In an era characterized by information overload, the project becomes essential in ensuring the credibility of facts. Through the integration of scholarly articles into the fact-checking domain, the Corroboration Dashboard strives to offer a more inclusive, automated, and dependable approach to information verification, thereby contributing significantly to the progress of research and knowledge validation. The primary research question revolves around how effectively the system can corroborate user-provided facts with information present in the scholarly articles. Overall, this project attempts to help the need for an automated corroboration mechanism in the domain of scholarly research.
 
 ## 📝 Literature Review 📝
 
-The Corroboration Dashboard project represents a pivotal advancement in the domain of information verification and fact-checking, responding to the exigencies identified in the existing body of literature related to text analysis, machine learning, and knowledge validation. A thorough literature review reveals that contemporary challenges associated with misinformation and the credibility of textual content have spurred diverse research endeavors across multiple domains, including journalism, information retrieval, and natural language processing.
+The Corroboration Dashboard project introduces a methodology by systematically processing scholarly articles from PubMed, aiming to enhance the fact-checking process. It recognizes the limitations of traditional fact-checking methodologies, especially in dealing with evolving information sources, and proposes an innovative approach by integrating scholarly articles into the landscape.
 
-Prior research has explored the application of machine learning algorithms to assess the credibility and authenticity of textual content. While these studies have laid a foundation for automated fact-checking, they often grapple with challenges such as scalability, precision, and the ability to handle diverse datasets. The Corroboration Dashboard project builds upon this corpus of knowledge by introducing a novel methodology grounded in the systematic processing of scholarly articles sourced from PubMed.
+The project aligns with the insights from scholars like Alpaydin (2021), who explores the complexities of machine learning and emphasizes ethical utilization. It also draws on prior works such as those by Bengfort et al. (2018) on applied text analysis with Python and Thorne & Vlachos (2018) on automated fact-checking, showcasing a continuation of research trends in the field.
 
-The literature also highlights a growing concern regarding the limitations of existing fact-checking methodologies in the face of evolving information sources. As the landscape diversifies, traditional fact-checking practices confront difficulties in maintaining relevance and accuracy. The Corroboration Dashboard project addresses and extends these challenges by integrating scholarly articles into the fact-checking landscape, offering a distinctive contribution that leverages the rigor of academic discourse to enhance the verification process.
+The focus on PubMed articles as a source of validated information is highlighted as a distinctive approach, indicating a potential paradigm shift in how fact-checking is approached in an era marked by information abundance and complexity.
 
-Several scholarly works have emphasized the pressing need for innovative fact-checking solutions in contemporary society. The Corroboration Dashboard project emerges as a promising initiative, not merely aligning with prior research insights but introducing a novel paradigm for information validation. By harnessing the depth and reliability embedded in scholarly articles, this project provides a unique and valuable contribution to the ongoing discourse on information credibility and fact-checking methodologies. In this context, the project's focus on PubMed articles as a rich source of validated information represents a distinctive approach that holds the potential to reshape how fact-checking is approached in an era marked by information abundance and complexity.
+Incorporating references to various scholars in the field, such as Ke et al. (2019) and Vo & Lee (2019), adds credibility to the discussion and indicates a thorough literature review supporting the project's foundation.
+
+Overall, your text effectively communicates the significance of the Corroboration Dashboard project in addressing challenges related to misinformation and credibility of textual content, positioning it as a promising initiative in the realm of information validation and fact-checking.
 
 ## ❓🤔 Methods 🤔❓
 
@@ -74,7 +76,7 @@ To test the validity of this project, I took the approach to manually test each 
 ![screen_shot_four](Screenshots/screen_shot_four.png)
 ![screen_shot_five](Screenshots/screen_shot_five.png)
 
-## Using the Artifact
+## 🦉 Using the Artifact 🦉
 
 ***Installation***
 
@@ -146,7 +148,6 @@ Evaluation metrics for the artifact involve measuring the system's accuracy in i
 - Jordan, M. I., & Mitchell, T. M. (2015). Machine learning: Trends, perspectives, and prospects. Science, 349(6245), 255-260.
 
 - Vo, N., & Lee, K. (2019, July). Learning from fact-checkers: Analysis and generation of fact-checking language. In Proceedings of the 42nd International ACM SIGIR Conference on Research and Development in Information Retrieval (pp. 335-344).
-
 
 ---
 
