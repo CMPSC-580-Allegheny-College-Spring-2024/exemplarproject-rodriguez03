@@ -23,13 +23,7 @@ The purpose of this project aims to elevate the effectiveness of using machine l
 
 The Corroboration Dashboard project introduces a methodology by systematically processing scholarly articles from PubMed, aiming to enhance the fact-checking process. It recognizes the limitations of traditional fact-checking methodologies, especially in dealing with evolving information sources, and proposes an innovative approach by integrating scholarly articles into the landscape.
 
-The project aligns with the insights from scholars like Alpaydin (2021), who explores the complexities of machine learning and emphasizes ethical utilization. It also draws on prior works such as those by Bengfort et al. (2018) on applied text analysis with Python and Thorne & Vlachos (2018) on automated fact-checking, showcasing a continuation of research trends in the field.
-
-The focus on PubMed articles as a source of validated information is highlighted as a distinctive approach, indicating a potential paradigm shift in how fact-checking is approached in an era marked by information abundance and complexity.
-
-Incorporating references to various scholars in the field, such as Ke et al. (2019) and Vo & Lee (2019), adds credibility to the discussion and indicates a thorough literature review supporting the project's foundation.
-
-Overall, your text effectively communicates the significance of the Corroboration Dashboard project in addressing challenges related to misinformation and credibility of textual content, positioning it as a promising initiative in the realm of information validation and fact-checking.
+The project aligns with the insights from scholars like Alpaydin (2021), who explores the complexities of machine learning and emphasizes ethical utilization. It also draws on prior works such as those by Bengfort et al. (2018) on applied text analysis with Python and Thorne & Vlachos (2018) on automated fact-checking, showcasing a continuation of research trends in the field. The focus on PubMed articles as a source of validated information is highlighted as a distinctive approach, indicating a potential paradigm shift in how fact-checking is approached in an era marked by information abundance and complexity.
 
 ## ❓🤔 Methods 🤔❓
 
